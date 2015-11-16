@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Codeproject
+        psr4_prefix: Codeproject
+        src_path: app
