@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/client',['as'=>'home.index','uses'=>'ClientController@index']);
+Route::post('/client',['as'=>'home.index','uses'=>'ClientController@store']);
