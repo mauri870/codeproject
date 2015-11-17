@@ -28,6 +28,6 @@ $factory->define(Codeproject\Client::class, function (Faker\Generator $faker) {
         'email' => $faker->email,
         'phone' => $faker->phoneNumber,
         'adress' => $faker->address,
-        'obs' => $faker->text(100),
+        'obs' => $faker->sentence(100),
     ];
 });
