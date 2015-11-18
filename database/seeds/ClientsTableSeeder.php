@@ -12,7 +12,7 @@ class ClientsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Codeproject\Client::class, 10)->create();
+        factory(Codeproject\Models\Client::class, 10)->create();
 
         DB::table('clients')
             ->insert([
