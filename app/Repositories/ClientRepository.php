@@ -9,7 +9,9 @@
 namespace Codeproject\Repositories;
 
 
-interface ClientRepository
+use Prettus\Repository\Contracts\RepositoryInterface;
+
+interface ClientRepository extends RepositoryInterface
 {
 
 }

@@ -150,6 +150,8 @@ return [
          * */
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
 
+        Codeproject\Providers\CodeProjectRepositoryProvider::class,
+
     ],
 
     /*
