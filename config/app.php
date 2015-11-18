@@ -146,7 +146,7 @@ return [
         Codeproject\Providers\RouteServiceProvider::class,
 
         /*
-         * Repository
+         * Repositories
          * */
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
 
