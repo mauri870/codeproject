@@ -24,6 +24,12 @@ class ClientController extends Controller
         return Client::find($id);
     }
 
+    public function edit($id, Request $request){
+        $client = Client::find($id);
+	    $client->fill($request->all());
+        $client->save();
+    }
+
     public function delete($id){
         Client::find($id)->delete();
     }
