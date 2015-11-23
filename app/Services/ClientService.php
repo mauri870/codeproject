@@ -10,23 +10,70 @@ namespace Codeproject\Services;
 
 
 use Codeproject\Repositories\ClientRepository;
+use Codeproject\Validators\ClientValidator;
+use Illuminate\Contracts\Validation\ValidationException;
 
 class ClientService
 {
+    /**
+     * @var ClientRepository
+     */
     protected $repository;
 
-    public function __construct(ClientRepository $repository)
+
+    /**
+     * @var ClientValidator
+     */
+    protected $validator;
+
+    public function __construct(ClientRepository $repository, ClientValidator $validator)
     {
         $this->repository = $repository;
+
+        $this->validator = $validator;
     }
 
+    /**
+     * @param array $data
+     * @return mixed
+     */
     public function create(array $data)
     {
-        return $this->repository->create($data);
+        try{
+            $this->validator->with($data)->passesOrFail();
+
+            return $this->repository->create($data);
+
+        } catch(ValidationException $e){
+
+          return [
+              'error' => true,
+              'message' => $e->getMessageBag(),
+          ];
+
+        }
     }
 
+    /**
+     * @param array $data
+     * @param $id
+     * @return mixed
+     */
     public function update(array $data, $id)
     {
-        return $this->repository->update($data, $id);
+
+        try{
+            $this->validator->with($data)->passesOrFail();
+
+            return $this->repository->update($data, $id);
+
+        } catch(ValidationException $e){
+
+            return [
+                'error' => true,
+                'message' => $e->getMessageBag(),
+            ];
+
+        }
     }
 }
