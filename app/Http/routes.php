@@ -18,5 +18,5 @@ Route::get('/', function () {
 Route::get('/client',['as'=>'home.index','uses'=>'ClientController@index']);
 Route::post('/client',['as'=>'home.store','uses'=>'ClientController@store']);
 Route::get('/client/show/{id}',['as'=>'home.show','uses'=>'ClientController@show']);
-Route::put('/client/edit/{id}',['as'=>'home.edit','uses'=>'ClientController@edit']);
+Route::put('/client/edit/{id}',['as'=>'home.update','uses'=>'ClientController@update']);
 Route::delete('/client/delete/{id}',['as'=>'home.delete','uses'=>'ClientController@delete']);
