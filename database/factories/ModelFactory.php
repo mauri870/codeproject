@@ -39,8 +39,8 @@ $factory->define(Codeproject\Entities\Project::class, function (Faker\Generator 
         'client_id' => Codeproject\Entities\User::all()->random()->id,
         'name' => $faker->name,
         'description' => $faker->sentence(100),
-        'progress' => $faker->paragraph(),
-        'status' => $faker->word,
-        'due_date' => $faker->date('d/m/Y'),
+        'progress' => rand(1,100),
+        'status' => rand(1,3),
+        'due_date' => $faker->dateTime('now'),
     ];
 });
