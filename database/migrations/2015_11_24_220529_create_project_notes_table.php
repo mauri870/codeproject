@@ -18,7 +18,6 @@ class CreateProjectNotesTable extends Migration
             $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects');
             $table->string('title');
-            $table->string('text');
             $table->text('note');
             $table->timestamps();
         });
