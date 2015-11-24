@@ -2,6 +2,8 @@
 
 namespace Codeproject\Http\Controllers;
 
+use Codeproject\Repositories\ClientRepository;
+use Codeproject\Repositories\ProjectRepository;
 use Illuminate\Http\Request;
 
 use Codeproject\Http\Requests;
@@ -10,13 +12,23 @@ use Codeproject\Http\Controllers\Controller;
 class ProjectController extends Controller
 {
     /**
+     * @var ClientRepository
+     */
+    private $repository;
+
+    public function __construct(ProjectRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+       return $this->repository->with(['user','client'])->all();
     }
 
     /**
