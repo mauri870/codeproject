@@ -41,6 +41,6 @@ $factory->define(Codeproject\Entities\Project::class, function (Faker\Generator 
         'description' => $faker->sentence(100),
         'progress' => $faker->paragraph(),
         'status' => $faker->word,
-        'due_date' => $faker->dateTime,
+        'due_date' => $faker->date('d/m/Y'),
     ];
 });
