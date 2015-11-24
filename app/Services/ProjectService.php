@@ -9,7 +9,19 @@
 namespace Codeproject\Services;
 
 
+use Codeproject\Repositories\ClientRepository;
+
 class ProjectService
 {
+    /**
+     * @var ClientRepository
+     */
+    private $repository;
+
+    public function __construct(ClientRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
 
 }
