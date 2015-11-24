@@ -10,6 +10,10 @@ class ProjectNote extends Model implements Transformable
 {
     use TransformableTrait;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'project_id',
+        'title',
+        'note',
+    ];
 
 }
