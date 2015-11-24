@@ -31,4 +31,12 @@ class Project extends Model
     {
         return $this->belongsTo(\Codeproject\Entities\Client::class,'client_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function notes()
+    {
+        return $this->hasMany(ProjectNote::class);
+    }
 }

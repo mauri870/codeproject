@@ -16,4 +16,13 @@ class ProjectNote extends Model implements Transformable
         'note',
     ];
 
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
 }
