@@ -25,7 +25,7 @@ class CreateProjectsTable extends Migration
             $table->text('description');
             $table->string('progress');
             $table->string('status');
-            $table->dateTime('due_date');
+            $table->string('due_date');
             $table->timestamps();
         });
     }
