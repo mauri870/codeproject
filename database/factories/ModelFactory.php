@@ -44,3 +44,13 @@ $factory->define(Codeproject\Entities\Project::class, function (Faker\Generator 
         'due_date' => $faker->dateTime('now'),
     ];
 });
+
+
+$factory->define(Codeproject\Entities\ProjectNote::class, function (Faker\Generator $faker) {
+    $faker = Faker\Factory::create('pt_BR');
+    return [
+        'project_id' => Codeproject\Entities\Project::all()->random()->id,
+        'title' => $faker->title,
+        'note' => $faker->paragraph,
+    ];
+});
