@@ -20,11 +20,11 @@ Route::get('/client',['as'=>'client.index','uses'=>'ClientController@index']);
 Route::post('/client',['as'=>'client.store','uses'=>'ClientController@store']);
 Route::get('/client/show/{id}',['as'=>'client.show','uses'=>'ClientController@show']);
 Route::put('/client/edit/{id}',['as'=>'client.update','uses'=>'ClientController@update']);
-Route::delete('/client/delete/{id}',['as'=>'client.delete','uses'=>'ClientController@delete']);
+Route::delete('/client/delete/{id}',['as'=>'client.delete','uses'=>'ClientController@destroy']);
 
 // Project Routes
 Route::get('/project',['as'=>'project.index','uses'=>'ProjectController@index']);
 Route::post('/project',['as'=>'project.store','uses'=>'ProjectController@store']);
 Route::get('/project/show/{id}',['as'=>'project.show','uses'=>'ProjectController@show']);
 Route::put('/project/edit/{id}',['as'=>'project.update','uses'=>'ProjectController@update']);
-Route::delete('/project/delete/{id}',['as'=>'project.delete','uses'=>'ProjectController@delete']);
+Route::delete('/project/delete/{id}',['as'=>'project.delete','uses'=>'ProjectController@destroy']);
