@@ -33,5 +33,10 @@ class CodeProjectRepositoryProvider extends ServiceProvider
           \Codeproject\Repositories\ProjectRepository::class,
           \Codeproject\Repositories\ProjectRepositoryEloquent::class
         );
+
+        $this->app->bind(
+          \Codeproject\Repositories\ProjectNoteRepository::class,
+          \Codeproject\Repositories\ProjectNoteRepositoryEloquent::class
+        );
     }
 }
