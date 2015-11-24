@@ -24,6 +24,9 @@ class Project extends Model
         return $this->belongsTo(\Codeproject\Entities\User::class,'owner_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function client()
     {
         return $this->belongsTo(\Codeproject\Entities\Client::class,'client_id');
