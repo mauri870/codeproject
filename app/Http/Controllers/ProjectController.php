@@ -12,7 +12,7 @@ use Codeproject\Http\Controllers\Controller;
 class ProjectController extends Controller
 {
     /**
-     * @var ClientRepository
+     * @var ProjectRepository
      */
     private $repository;
     /**
