@@ -2,7 +2,6 @@
 
 namespace Codeproject\Http\Controllers;
 
-use Codeproject\Repositories\ClientRepository;
 use Codeproject\Repositories\ProjectRepository;
 use Codeproject\Services\ProjectService;
 use Illuminate\Http\Request;
