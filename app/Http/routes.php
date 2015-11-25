@@ -22,6 +22,14 @@ Route::get('/client/show/{id}',['as'=>'client.show','uses'=>'ClientController@sh
 Route::put('/client/edit/{id}',['as'=>'client.update','uses'=>'ClientController@update']);
 Route::delete('/client/delete/{id}',['as'=>'client.delete','uses'=>'ClientController@destroy']);
 
+
+// Project Note routes
+Route::get('/project/{id}/note/',['as'=>'projectNotes.index','uses'=>'ProjectNoteController@index']);
+Route::post('/project/{id}/note/',['as'=>'projectNotes.store','uses'=>'ProjectNoteController@store']);
+Route::get('/project/{id}/note/{noteId}',['as'=>'projectNotes.index','uses'=>'ProjectNoteController@show']);
+Route::put('/project/{id}/note/edit/{noteId}',['as'=>'projectNotes.update','uses'=>'ProjectNoteController@update']);
+Route::delete('/project/{id}/note/delete/{noteId}',['as'=>'projectNotes.delete','uses'=>'ProjectNoteController@destroy']);
+
 // Project Routes
 Route::get('/project',['as'=>'project.index','uses'=>'ProjectController@index']);
 Route::post('/project',['as'=>'project.store','uses'=>'ProjectController@store']);
