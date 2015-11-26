@@ -31,7 +31,7 @@ return [
         'password' => [
             'class' => League\OAuth2\Server\Grant\PasswordGrant::class,
             'callback' => 'Codeproject\OAuth\PasswordVerifier@verify',
-            'acess_token_ttl' => 3600
+            'access_token_ttl' => 3600
         ]
     ],
 
