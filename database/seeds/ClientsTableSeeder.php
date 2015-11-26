@@ -14,7 +14,7 @@ class ClientsTableSeeder extends Seeder
     {
         factory(Codeproject\Entities\Client::class, 10)->create();
 
-        DB::table('clients')
+        /*DB::table('clients')
             ->insert([
                 'name'=>'Mauri',
                 'responsible'=>'Mauri de Souza Nunes',
@@ -22,7 +22,7 @@ class ClientsTableSeeder extends Seeder
                 'phone'=>'5481189792',
                 'adress'=>'Rua Cristiano Ziegler Filho, 341',
                 'obs'=>'Isto e uma observacao',
-            ]);
+            ]);*/
 
 
     }
