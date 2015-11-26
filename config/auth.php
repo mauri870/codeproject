@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => Codeproject\User::class,
+    'model' => Codeproject\Entities\User::class,
 
     /*
     |--------------------------------------------------------------------------
