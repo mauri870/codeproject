@@ -39,4 +39,12 @@ class Project extends Model
     {
         return $this->hasMany(ProjectNote::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projectTasks()
+    {
+        return $this->hasMany(ProjectTask::class);
+    }
 }
