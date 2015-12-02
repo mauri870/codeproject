@@ -8,6 +8,7 @@
 
 namespace Codeproject\Services;
 
+use Codeproject\Repositories\ProjectMembersRepository;
 use Codeproject\Repositories\ProjectRepository;
 use Codeproject\Validators\ProjectValidator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -24,11 +25,16 @@ class ProjectService
      * @var ProjectValidator
      */
     private $validator;
+    /**
+     * @var ProjectMembersRepository
+     */
+    private $projectMembersRepository;
 
-    public function __construct(ProjectRepository $repository, ProjectValidator $validator)
+    public function __construct(ProjectRepository $repository, ProjectValidator $validator, ProjectMembersRepository $projectMembersRepository)
     {
         $this->repository = $repository;
         $this->validator = $validator;
+        $this->projectMembersRepository = $projectMembersRepository;
     }
 
     /**
@@ -66,8 +72,68 @@ class ProjectService
     public function destroy($id)
     {
         $this->checkProjectExists($id);
-
         return $this->repository->delete($id);
+    }
+
+    /**
+     * Add a new member
+     *
+     * @param $projectId
+     * @param $userId
+     * @return mixed
+     */
+    public function addMember($projectId, $userId)
+    {
+        $this->checkProjectExists($projectId);
+        $member = $this->isMember($projectId,$userId);
+        if($member == false){
+            return $this->projectMembersRepository->create(['project_id' => $projectId, 'user_id' => $userId]);
+        }else{
+            return [
+                'error' => true,
+                'message' => '',
+            ];
+        }
+
+    }
+
+    /**
+     * Remove a member
+     *
+     * @param $projectId
+     * @param $userId
+     * @return mixed
+     */
+    public function removeMember($projectId, $userId)
+    {
+        $this->checkProjectExists($projectId);
+        $memberId = $this->isMember($projectId, $userId);
+        if(!$memberId == false){
+            return $this->projectMembersRepository->delete($memberId);
+        }else{
+            return [
+                'error' => true,
+                'message' => 'Membro inexistente',
+            ];
+        }
+
+    }
+
+    /**
+     * Check if is a member
+     *
+     * @param $projectId
+     * @param $userId
+     * @return mixed
+     */
+    public function isMember($projectId, $userId)
+    {
+        $this->checkProjectExists($projectId);
+        $member = $this->projectMembersRepository->findWhere(['project_id' => $projectId, 'user_id' => $userId]);
+        if ($member->isEmpty()) {
+            return false;
+        }
+        return $member->first()->id;
     }
 
     /**
