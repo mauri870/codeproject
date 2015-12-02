@@ -33,7 +33,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-       return $this->repository->with(['user','client','notes','projectTasks'])->all();
+       return $this->repository->with(['user','client','notes','projectTasks','projectMembers'])->all();
     }
 
     /**
