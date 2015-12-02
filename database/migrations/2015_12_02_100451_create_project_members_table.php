@@ -28,6 +28,6 @@ class CreateProjectMembersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('project_tasks');
+        Schema::drop('project_members');
     }
 }
