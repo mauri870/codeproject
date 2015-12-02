@@ -65,3 +65,11 @@ $factory->define(Codeproject\Entities\ProjectTask::class, function (Faker\Genera
         'status' => rand(1,3),
     ];
 });
+
+$factory->define(Codeproject\Entities\ProjectMembers::class, function (Faker\Generator $faker) {
+    $faker = Faker\Factory::create('pt_BR');
+    return [
+        'project_id' => Codeproject\Entities\Project::all()->random()->id,
+        'user_id' => Codeproject\Entities\User::all()->random()->id,
+    ];
+});
