@@ -60,25 +60,29 @@ class ProjectTaskController extends Controller
         return $this->repository->findWhere(['project_id'=>$id,'id'=>$taskId]);
     }
 
+
     /**
-     * Show the form for editing the specified resource.
+     * Edit the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @param $taskId
+     * @return mixed
      */
     public function update(Request $request, $id, $taskId)
     {
-        return $this->service->update($request->all(), $taskId);
+        return $this->service->update($request->all(),$id, $taskId);
     }
+
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @param $taskId
      */
-    public function destroy($id,$taskId)
+    public function destroy($id, $taskId)
     {
-        return $this->repository->delete($taskId);
+        $this->service->destroy($id,$taskId);
     }
 }
