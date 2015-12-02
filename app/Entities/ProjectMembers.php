@@ -16,4 +16,14 @@ class ProjectMembers extends Model implements Transformable
     ];
 
     protected $table = 'project_members';
+
+    public function projects()
+    {
+        return $this->belongsTo(Project::class,'project_id');
+    }
+
+    public function members()
+    {
+        return $this->belongsToMany(User::class,'project_members','user_id');
+    }
 }
