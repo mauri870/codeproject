@@ -34,6 +34,13 @@ Route::get('/project/{id}/note/{noteId}',['as'=>'projectNotes.index','uses'=>'Pr
 Route::put('/project/{id}/note/{noteId}',['as'=>'projectNotes.update','uses'=>'ProjectNoteController@update']);
 Route::delete('/project/{id}/note/{noteId}',['as'=>'projectNotes.delete','uses'=>'ProjectNoteController@destroy']);
 
+// Project task routes
+Route::get('/project/{id}/task/',['as'=>'projectTasks.index','uses'=>'ProjectTaskController@index']);
+Route::post('/project/{id}/task/',['as'=>'projectTasks.store','uses'=>'ProjectTaskController@store']);
+Route::get('/project/{id}/task/{taskId}',['as'=>'projectTasks.index','uses'=>'ProjectTaskController@show']);
+Route::put('/project/{id}/task/{taskId}',['as'=>'projectTasks.update','uses'=>'ProjectTaskController@update']);
+Route::delete('/project/{id}/task/{taskId}',['as'=>'projectTasks.delete','uses'=>'ProjectTaskController@destroy']);
+
 // Project Routes
 Route::get('/project',['as'=>'project.index','uses'=>'ProjectController@index']);
 Route::post('/project',['as'=>'project.store','uses'=>'ProjectController@store']);
