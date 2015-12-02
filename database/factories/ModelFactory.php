@@ -54,3 +54,14 @@ $factory->define(Codeproject\Entities\ProjectNote::class, function (Faker\Genera
         'note' => $faker->paragraph,
     ];
 });
+
+$factory->define(Codeproject\Entities\ProjectTask::class, function (Faker\Generator $faker) {
+    $faker = Faker\Factory::create('pt_BR');
+    return [
+        'project_id' => Codeproject\Entities\Project::all()->random()->id,
+        'name' => $faker->word,
+        'start_date' => $faker->dateTime('now'),
+        'due_date' => $faker->dateTime('now'),
+        'status' => rand(1,3),
+    ];
+});
