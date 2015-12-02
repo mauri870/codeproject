@@ -29,14 +29,55 @@ class ProjectNoteService
         $this->validator = $validator;
     }
 
+    /**
+     * Create a Note
+     *
+     * @param array $data
+     * @return mixed
+     */
     public function create(array $data)
     {
-        try{
+
+        $this->validate($data);
+        return $this->repository->create($data);
+    }
+
+    /**
+     * Update a note
+     *
+     * @param $data
+     * @param $id
+     * @return mixed
+     */
+    public function update($data, $id, $noteId)
+    {
+        $this->validate($data);
+        $this->checkNoteBelongsToProject($id,$noteId);
+        return $this->repository->update($data,$noteId);
+    }
+
+    /**
+     * @param $noteId
+     * @return int
+     */
+    public function destroy($id,$noteId)
+    {
+        $this->checkNoteBelongsToProject($id,$noteId);
+        return $this->repository->delete($noteId);
+    }
+
+    /**
+     * Call the validator and catch the errors
+     *
+     * @param $data
+     * @return array
+     */
+    private function validate($data)
+    {
+        try {
             $this->validator->with($data)->passesOrFail();
 
-            return $this->repository->create($data);
-
-        } catch(ValidatorException $e){
+        } catch (ValidatorException $e) {
 
             return [
                 'error' => true,
@@ -46,20 +87,23 @@ class ProjectNoteService
         }
     }
 
-    public function update($data, $id)
+
+    /**
+     * Check if note belongs to a project
+     *
+     * @param $projectId
+     * @param $taskId
+     */
+    private function checkNoteBelongsToProject($projectId, $noteId)
     {
-        try{
-            $this->validator->with($data)->passesOrFail();
+        $result = $this->repository->findWhere(['project_id' => $projectId,'id' => $noteId]);
 
-            return $this->repository->update($data,$id);
-
-        } catch(ValidatorException $e){
-
-            return [
+        if($result->isEmpty()){
+            echo json_encode([
                 'error' => true,
-                'message' => $e->getMessageBag(),
-            ];
-
+                'message' => 'Esta nota nao existe neste projeto.',
+            ]);
+            exit;
         }
     }
 

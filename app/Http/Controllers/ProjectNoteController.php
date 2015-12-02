@@ -33,7 +33,7 @@ class ProjectNoteController extends Controller
      */
     public function index($id)
     {
-       return $this->repository->findWhere(['project_id'=>$id]);
+        return $this->repository->findWhere(['project_id'=>$id]);
     }
 
     /**
@@ -57,25 +57,29 @@ class ProjectNoteController extends Controller
         return $this->repository->findWhere(['project_id'=>$id,'id'=>$noteId]);
     }
 
+
     /**
-     * Show the form for editing the specified resource.
+     * Edit the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @param $noteId
+     * @return mixed
      */
     public function update(Request $request, $id, $noteId)
     {
-        return $this->service->update($request->all(), $noteId);
+        return $this->service->update($request->all(),$id, $noteId);
     }
+
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @param $noteId
      */
-    public function destroy($id,$noteId)
+    public function destroy($id, $noteId)
     {
-        return $this->repository->delete($noteId);
+        $this->service->destroy($id,$noteId);
     }
 }
