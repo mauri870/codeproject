@@ -47,3 +47,6 @@ Route::post('/project',['as'=>'project.store','uses'=>'ProjectController@store']
 Route::get('/project/{id}',['as'=>'project.show','uses'=>'ProjectController@show']);
 Route::put('/project/{id}',['as'=>'project.update','uses'=>'ProjectController@update']);
 Route::delete('/project/{id}',['as'=>'project.delete','uses'=>'ProjectController@destroy']);
+
+// Project members Routes
+Route::get('/project/{id}/members',['as'=>'projectMembers.index','uses'=>'ProjectController@members']);
