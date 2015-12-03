@@ -36,6 +36,7 @@ class ClientController extends Controller
 
     public function show($id){
         return $this->repository->find($id);
+
     }
 
     public function update($id, Request $request){
