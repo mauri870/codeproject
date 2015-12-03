@@ -12,6 +12,6 @@ class OAuthClientsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('oauth_clients')->insert(['id'=>1,'secret'=>'secret','name'=>'Codeproject','created_at'=>Carbon\Carbon::now(),'updated_at'=>Carbon\Carbon::now()]);
+        DB::table('oauth_clients')->insert(['id'=>'appid1','secret'=>'secret','name'=>'Codeproject','created_at'=>Carbon\Carbon::now(),'updated_at'=>Carbon\Carbon::now()]);
     }
 }
