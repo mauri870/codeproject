@@ -21,7 +21,7 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
 
     public function isOwner($projectId, $userId)
     {
-        if($this->findWhere(['project_id'=>$projectId,'user_id'=>$userId])){
+        if(count($this->findWhere(['id'=>$projectId,'owner_id'=>$userId]))){
             return true;
         }
 
