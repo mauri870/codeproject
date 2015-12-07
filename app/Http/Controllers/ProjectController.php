@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use Codeproject\Http\Requests;
 use Codeproject\Http\Controllers\Controller;
+use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class ProjectController extends Controller
 {
@@ -54,6 +55,10 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
+        $userId = Authorizer::getResourceOwnerId();
+        if($this->repository->isOwner($id,$userId) == false){
+            return ['success'=>false];
+        }
         return $this->repository->find($id);
     }
 
