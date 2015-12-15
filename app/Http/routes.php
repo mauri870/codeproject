@@ -22,8 +22,10 @@ Route::group(['middleware' => 'oauth'], function () {
 
     Route::resource('client', 'ClientController', ['except' => ['create', 'edit']]);
 
-    Route::resource('project', 'ProjectController', ['except' => ['create', 'edit']]);
-    Route::get('project/show/{id}', 'ProjectController@show');
+    Route::group(['middleware' => 'CheckProjectOwner'], function () {
+        Route::resource('project', 'ProjectController', ['except' => ['create', 'edit']]);
+        Route::get('project/show/{id}', 'ProjectController@show');
+    });
 
     Route::group(['prefix' => 'project'], function () {
 
