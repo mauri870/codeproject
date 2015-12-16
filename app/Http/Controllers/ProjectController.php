@@ -55,6 +55,10 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
+        if($this->checkProjectOwner($id) == false){
+            return ['error'=>'Acess Forbbiden'];
+        }
+
         return $this->repository->find($id);
     }
 
@@ -66,6 +70,10 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if($this->checkProjectOwner($id) == false){
+            return ['error'=>'Acess Forbbiden'];
+        }
+
         return $this->service->update($request->all(), $id);
     }
 
@@ -77,6 +85,10 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
+        if($this->checkProjectOwner($id) == false){
+            return ['error'=>'Acess Forbbiden'];
+        }
+
         $this->service->destroy($id);
     }
 
@@ -84,5 +96,12 @@ class ProjectController extends Controller
     public function members($id)
     {
         return $this->repository->with('projectMembers')->find($id);
+    }
+
+    private function checkProjectOwner($projectId)
+    {
+        $userId = Authorizer::getResourceOwnerId();
+
+        return $this->repository->isOwner($projectId,$userId);
     }
 }
