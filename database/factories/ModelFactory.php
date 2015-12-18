@@ -36,7 +36,7 @@ $factory->define(Codeproject\Entities\Project::class, function (Faker\Generator 
     $faker = Faker\Factory::create('pt_BR');
     return [
         'owner_id' => Codeproject\Entities\User::all()->random()->id,
-        'client_id' => Codeproject\Entities\User::all()->random()->id,
+        'client_id' => Codeproject\Entities\Client::all()->random()->id,
         'name' => $faker->name,
         'description' => $faker->sentence(100),
         'progress' => rand(1,100),
