@@ -14,16 +14,4 @@ class ProjectMembers extends Model implements Transformable
         'project_id',
         'user_id',
     ];
-
-    protected $table = 'project_members';
-
-    public function projects()
-    {
-        return $this->belongsTo(Project::class,'project_id');
-    }
-
-    public function members()
-    {
-        return $this->belongsTo(User::class,'user_id');
-    }
 }
