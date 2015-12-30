@@ -19,6 +19,13 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
     }
 
 
+    /**
+     * Check if user has a project owner
+     *
+     * @param $projectId
+     * @param $userId
+     * @return bool
+     */
     public function isOwner($projectId, $userId)
     {
         if(count($this->findWhere(['id'=>$projectId,'owner_id'=>$userId]))){
