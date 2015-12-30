@@ -34,5 +34,24 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
 
         return false;
     }
+
+    /**
+     * Check if user is a member
+     *
+     * @param $projectId
+     * @param $userId
+     * @return mixed
+     */
+    public function isMember($projectId, $userId)
+    {
+        $project = $this->find($projectId);
+
+        foreach($project->projectMembers as $member){
+            if($member->id == $userId){
+                return true;
+            }
+        }
+        return false;
+    }
     
 }

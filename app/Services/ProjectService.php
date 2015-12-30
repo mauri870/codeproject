@@ -85,7 +85,7 @@ class ProjectService
     public function addMember($projectId, $userId)
     {
         $this->checkProjectExists($projectId);
-        $member = $this->isMember($projectId,$userId);
+        $member = $this->repository->isMember($projectId,$userId);
         if($member == false){
             return $this->projectMembersRepository->create(['project_id' => $projectId, 'user_id' => $userId]);
         }else{
@@ -107,7 +107,7 @@ class ProjectService
     public function removeMember($projectId, $userId)
     {
         $this->checkProjectExists($projectId);
-        $memberId = $this->isMember($projectId, $userId);
+        $memberId = $this->repository->isMember($projectId, $userId);
         if(!$memberId == false){
             return $this->projectMembersRepository->delete($memberId);
         }else{
@@ -117,23 +117,6 @@ class ProjectService
             ];
         }
 
-    }
-
-    /**
-     * Check if is a member
-     *
-     * @param $projectId
-     * @param $userId
-     * @return mixed
-     */
-    public function isMember($projectId, $userId)
-    {
-        $this->checkProjectExists($projectId);
-        $member = $this->projectMembersRepository->findWhere(['project_id' => $projectId, 'user_id' => $userId]);
-        if ($member->isEmpty()) {
-            return false;
-        }
-        return $member->first()->id;
     }
 
     /**
