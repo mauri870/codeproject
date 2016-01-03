@@ -19,8 +19,8 @@ class ProjectTransformer extends TransformerAbstract
             'project_id'=>$project->id,
             'project'=>$project->name,
             'description'=>$project->description,
-            'project_progress'=>$project->progress,
-            'project_status'=>$project->status,
+            'progress'=>$project->progress,
+            'status'=>$project->status,
             'due_date'=>$project->due_date,
         ];
     }
