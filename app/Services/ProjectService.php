@@ -12,6 +12,8 @@ use Codeproject\Repositories\ProjectMembersRepository;
 use Codeproject\Repositories\ProjectRepository;
 use Codeproject\Validators\ProjectValidator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -29,12 +31,22 @@ class ProjectService
      * @var ProjectMembersRepository
      */
     private $projectMembersRepository;
+    /**
+     * @var Filesystem
+     */
+    private $filesystem;
+    /**
+     * @var Storage
+     */
+    private $storage;
 
-    public function __construct(ProjectRepository $repository, ProjectValidator $validator, ProjectMembersRepository $projectMembersRepository)
+    public function __construct(ProjectRepository $repository, ProjectValidator $validator, ProjectMembersRepository $projectMembersRepository, Filesystem $filesystem, Storage $storage)
     {
         $this->repository = $repository;
         $this->validator = $validator;
         $this->projectMembersRepository = $projectMembersRepository;
+        $this->filesystem = $filesystem;
+        $this->storage = $storage;
     }
 
     /**
@@ -163,5 +175,16 @@ class ProjectService
         }
     }
 
+    /**
+     * Create a new file
+     * @param array $data
+     */
+    public function createFile(array $data)
+    {
+        $project = $this->repository->skipPresenter()->find($data['project_id']);
+        $projectFile = $project->files()->create($data);
 
+        $this->storage->put($projectFile->id.".".$data['extension'],   $this->filesystem->get($data['file']));
+
+    }
 }
