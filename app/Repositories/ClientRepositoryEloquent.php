@@ -10,6 +10,7 @@ namespace Codeproject\Repositories;
 
 
 use Codeproject\Entities\Client;
+use Codeproject\Presenters\ClientPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class ClientRepositoryEloquent extends BaseRepository implements ClientRepository
@@ -19,6 +20,12 @@ class ClientRepositoryEloquent extends BaseRepository implements ClientRepositor
         return Client::class;
     }
 
-
-
+    /**
+     * Define the repository presenter
+     * @return mixed
+     */
+    public function presenter()
+    {
+        return ClientPresenter::class;
+    }
 }
