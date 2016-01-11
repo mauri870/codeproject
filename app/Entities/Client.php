@@ -11,7 +11,7 @@ class Client extends Model
         'responsible',
         'email',
         'phone',
-        'adress',
+        'address',
         'obs',
     ];
 
