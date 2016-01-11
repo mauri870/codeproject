@@ -47,6 +47,6 @@ Route::group(['middleware' => 'oauth'], function () {
         Route::get('{id}/members', ['as' => 'projectMembers.index', 'uses' => 'ProjectController@members']);
 
         // Project Files
-       Route::post('{id}/file','ProjectFileController@store');
+       Route::post('file/','ProjectFileController@store');
     });
 });
