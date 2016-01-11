@@ -10,10 +10,13 @@ namespace Codeproject\Services;
 
 use Codeproject\Repositories\ProjectMembersRepository;
 use Codeproject\Repositories\ProjectRepository;
+use Codeproject\Validators\ProjectFileValidator;
 use Codeproject\Validators\ProjectValidator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
+use Illuminate\Support\Facades\Auth;
+use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -39,14 +42,19 @@ class ProjectService
      * @var Storage
      */
     private $storage;
+    /**
+     * @var ProjectFileValidator
+     */
+    private $fileValidator;
 
-    public function __construct(ProjectRepository $repository, ProjectValidator $validator, ProjectMembersRepository $projectMembersRepository, Filesystem $filesystem, Storage $storage)
+    public function __construct(ProjectRepository $repository,ProjectFileValidator $fileValidator, ProjectValidator $validator, ProjectMembersRepository $projectMembersRepository, Filesystem $filesystem, Storage $storage)
     {
         $this->repository = $repository;
         $this->validator = $validator;
         $this->projectMembersRepository = $projectMembersRepository;
         $this->filesystem = $filesystem;
         $this->storage = $storage;
+        $this->fileValidator = $fileValidator;
     }
 
     /**
@@ -169,22 +177,54 @@ class ProjectService
                     'error' => true,
                     'message' => 'Projeto nao encontrado'
                 ]);
-
                 exit;
             }
         }
     }
 
+
     /**
-     * Create a new file
      * @param array $data
+     * @return array
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function createFile(array $data)
     {
+        try {
+            $this->fileValidator->with($data)->passesOrFail();
+
+        } catch (ValidatorException $e) {
+
+            echo json_encode([
+                'error' => true,
+                'message' => $e->getMessageBag(),
+            ]);
+            exit();
+
+        }
+
+        $this->checkProjectExists($data['project_id']);
+
         $project = $this->repository->skipPresenter()->find($data['project_id']);
         $projectFile = $project->files()->create($data);
 
-        $this->storage->put($projectFile->id.".".$data['extension'],   $this->filesystem->get($data['file']));
+        return $this->storage->put($projectFile->id.".".$data['extension'],   $this->filesystem->get($data['file']));
+    }
 
+    /**
+     * @param array $data
+     * @return array
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function deleteFile(array $data)
+    {
+
+        $this->checkProjectExists($data['project_id']);
+
+        $project = $this->repository->skipPresenter()->find($data['project_id']);
+        $projectFile = $project->files()->find($data['file_id']);
+        dd($projectFile);
+
+        return $this->storage->delete($projectFile->id.".".$data['extension']);
     }
 }

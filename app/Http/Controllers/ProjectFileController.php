@@ -78,18 +78,17 @@ class ProjectFileController extends Controller
         return $this->service->update($request->all(), $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        if($this->checkProjectOwner($id) == false){
-            return ['error'=>'Acess Forbbiden'];
-        }
 
-        $this->service->destroy($id);
+    /**
+     * @param Request $request
+     */
+    public function destroy(Request $request)
+    {
+       /* $data = [
+            'project_id'=> $request->project_id,
+            'file_id' => $request->file_id,
+        ];
+
+        $this->service->deleteFile($data);*/
     }
 }
