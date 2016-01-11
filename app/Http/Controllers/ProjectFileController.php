@@ -34,7 +34,7 @@ class ProjectFileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store($id,Request $request)
+    public function store(Request $request)
     {
         $file = $request->file('file');
 
