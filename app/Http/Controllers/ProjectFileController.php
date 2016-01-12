@@ -4,6 +4,7 @@ namespace Codeproject\Http\Controllers;
 
 use Codeproject\Repositories\ProjectRepository;
 use Codeproject\Services\ProjectService;
+use Codeproject\Validators\ProjectFileValidator;
 use Illuminate\Http\Request;
 
 use Codeproject\Http\Requests;
@@ -11,6 +12,7 @@ use Codeproject\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use LucaDegasperi\OAuth2Server\Facades\Authorizer;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class ProjectFileController extends Controller
 {
@@ -22,11 +24,16 @@ class ProjectFileController extends Controller
      * @var ProjectService
      */
     private $service;
+    /**
+     * @var ProjectFileValidator
+     */
+    private $fileValidator;
 
-    public function __construct(ProjectRepository $repository, ProjectService $service)
+    public function __construct(ProjectRepository $repository, ProjectService $service, ProjectFileValidator $fileValidator)
     {
         $this->repository = $repository;
         $this->service = $service;
+        $this->fileValidator = $fileValidator;
     }
 
     /**
@@ -36,6 +43,17 @@ class ProjectFileController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            $this->fileValidator->setType('create')->with($request->all())->passesOrFail();
+
+        } catch (ValidatorException $e) {
+
+           return [
+                'error' => true,
+                'message' => $e->getMessageBag(),
+            ];
+        }
+
         $file = $request->file('file');
 
         $data = [
@@ -80,10 +98,23 @@ class ProjectFileController extends Controller
 
 
     /**
+     * @param $id
      * @param Request $request
+     * @return array
      */
-    public function destroy($id,Request $request)
+    public function destroy($id, Request $request)
     {
+        try {
+            $this->fileValidator->setType('destroy')->with($request->all())->passesOrFail();
+
+        } catch (ValidatorException $e) {
+
+            return [
+                'error' => true,
+                'message' => $e->getMessageBag(),
+            ];
+        }
+
         $data = [
             'project_id'=> $request->project_id,
             'file_id' => $request->file_id,

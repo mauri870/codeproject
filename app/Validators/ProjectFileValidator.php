@@ -9,6 +9,7 @@
 namespace Codeproject\Validators;
 
 
+use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\LaravelValidator;
 
 class ProjectFileValidator extends LaravelValidator
@@ -19,4 +20,29 @@ class ProjectFileValidator extends LaravelValidator
         'description' => 'required',
         'project_id' => 'required|integer'
     ];
+
+    public function setType($type)
+    {
+        switch($type){
+            case 'create':
+                $this->rules = [
+                    'name' => 'required',
+                    'file' => 'required',
+                    'description' => 'required',
+                    'project_id' => 'required|integer'
+                ];
+                break;
+
+            case 'destroy':
+                $this->rules = [
+                    'file_id' => 'required|integer',
+                    'project_id' => 'required|integer'
+                ];
+                break;
+        }
+        if($type == 'create'){
+
+        }
+        return $this;
+    }
 }

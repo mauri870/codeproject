@@ -190,19 +190,6 @@ class ProjectService
      */
     public function createFile(array $data)
     {
-        try {
-            $this->fileValidator->with($data)->passesOrFail();
-
-        } catch (ValidatorException $e) {
-
-            echo json_encode([
-                'error' => true,
-                'message' => $e->getMessageBag(),
-            ]);
-            exit();
-
-        }
-
         $this->checkProjectExists($data['project_id']);
 
         $project = $this->repository->skipPresenter()->find($data['project_id']);
