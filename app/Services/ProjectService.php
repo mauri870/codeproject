@@ -218,13 +218,11 @@ class ProjectService
      */
     public function deleteFile(array $data)
     {
-
         $this->checkProjectExists($data['project_id']);
 
         $project = $this->repository->skipPresenter()->find($data['project_id']);
         $projectFile = $project->files()->find($data['file_id']);
-        dd($projectFile);
 
-        return $this->storage->delete($projectFile->id.".".$data['extension']);
+        return $this->storage->delete($projectFile->id.".".$projectFile->extension);
     }
 }

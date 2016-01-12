@@ -82,13 +82,13 @@ class ProjectFileController extends Controller
     /**
      * @param Request $request
      */
-    public function destroy(Request $request)
+    public function destroy($id,Request $request)
     {
-       /* $data = [
+        $data = [
             'project_id'=> $request->project_id,
             'file_id' => $request->file_id,
         ];
 
-        $this->service->deleteFile($data);*/
+        $this->service->deleteFile($data);
     }
 }
